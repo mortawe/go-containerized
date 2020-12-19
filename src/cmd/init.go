@@ -12,6 +12,7 @@ import (
 
 func init() {
 	nsexec.Register("nsInit", nsInit)
+	// avoiding infinite loop
 	if nsexec.Init() {
 		os.Exit(0)
 	}
@@ -22,12 +23,12 @@ func nsInit() {
 	hostname := os.Args[2]
 
 	if err := nsrootfs.MountProc(newRootPath); err != nil {
-		fmt.Printf("Error mounting /proc - %s, newroot - %s\n", err, newRootPath)
+		fmt.Printf("Error calling mount for /proc - %s, newroot - %s\n", err, newRootPath)
 		os.Exit(1)
 	}
 
 	if err := nsrootfs.PivotRoot(newRootPath); err != nil {
-		fmt.Printf("Error privot root - %s, newroot - %s\n", err, newRootPath)
+		fmt.Printf("Error calling privot root - %s, newroot - %s\n", err, newRootPath)
 		os.Exit(1)
 	}
 

@@ -42,3 +42,7 @@ func (o Opts) GetNetsetgo() string {
 func (o Opts) GetHostname() string {
 	return o.hostname
 }
+
+func (o Opts) Help() {
+	flag.Usage()
+}

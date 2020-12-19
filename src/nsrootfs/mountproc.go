@@ -6,9 +6,11 @@ import (
 	"syscall"
 )
 
-func MountProc(newroot string) error {
+// mounting /proc dir into container fs
+// without this mount PID namespace could not work properly
+func MountProc(newRoot string) error {
 	source := "proc"
-	target := filepath.Join(newroot, source)
+	target := filepath.Join(newRoot, source)
 	fstype := "proc"
 	flags := 0
 	data := ""

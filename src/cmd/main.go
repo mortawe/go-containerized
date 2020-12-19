@@ -13,9 +13,10 @@ import (
 func main() {
 	opts := nsopts.NewOpts()
 	if !opts.Validate() {
-		fmt.Printf("install fs and netsetgo\n")
+		opts.Help()
 		os.Exit(1)
 	}
+	// invoke self exec to isolate hostname and fs from host system
 	cmd := nsexec.Command("nsInit", opts.GetRootfs(), opts.GetHostname())
 
 	cmd.Stdin = os.Stdin
@@ -46,19 +47,19 @@ func main() {
 	}
 
 	if err := cmd.Start(); err != nil {
-		fmt.Printf("Error starting the reexec.Command - %s\n", err)
+		fmt.Printf("Error invoking self exec - %s\n", err)
 		os.Exit(1)
 	}
 
 	pid := fmt.Sprintf("%d", cmd.Process.Pid)
-
+	// creating network bridge and veths between host system and container
 	if err := nsnet.InvokeNetsetgo(opts.GetNetsetgo(), pid); err != nil {
 		fmt.Printf("Error running netsetgo - %s\n", err)
 		os.Exit(1)
 	}
 
 	if err := cmd.Wait(); err != nil {
-		fmt.Printf("Error waiting for the reexec.Command - %s\n", err)
+		fmt.Printf("Error waiting for invoked self - %s\n", err)
 		os.Exit(1)
 	}
 }

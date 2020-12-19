@@ -5,6 +5,7 @@ import (
 	"syscall"
 )
 
+// symbolic link for runtime file in current env
 func self() string {
 	return "/proc/self/exe"
 }

@@ -6,8 +6,9 @@ import (
 	"syscall"
 )
 
+// attaching new fs to container
 func PivotRoot(newroot string) error {
-	putold := filepath.Join(newroot, "/.pivot_root")
+	putOld := filepath.Join(newroot, "/.pivot_root")
 
 	if err := syscall.Mount(
 		newroot,
@@ -19,11 +20,11 @@ func PivotRoot(newroot string) error {
 		return err
 	}
 
-	if err := os.MkdirAll(putold, 0700); err != nil {
+	if err := os.MkdirAll(putOld, 0700); err != nil {
 		return err
 	}
 
-	if err := syscall.PivotRoot(newroot, putold); err != nil {
+	if err := syscall.PivotRoot(newroot, putOld); err != nil {
 		return err
 	}
 
@@ -31,15 +32,15 @@ func PivotRoot(newroot string) error {
 		return err
 	}
 
-	putold = "/.pivot_root"
+	putOld = "/.pivot_root"
 	if err := syscall.Unmount(
-		putold,
+		putOld,
 		syscall.MNT_DETACH,
 	); err != nil {
 		return err
 	}
 
-	if err := os.RemoveAll(putold); err != nil {
+	if err := os.RemoveAll(putOld); err != nil {
 		return err
 	}
 

@@ -9,7 +9,7 @@ var registeredInitializers = make(map[string]func())
 
 func Register(name string, initializer func()) error {
 	if _, exists := registeredInitializers[name]; exists {
-		panic(fmt.Sprint("reexec func already registered under name %q", name))
+		panic(fmt.Sprintf("reexec func already registered under name %q", name))
 	}
 	registeredInitializers[name] = initializer
 	return nil

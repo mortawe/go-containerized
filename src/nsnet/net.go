@@ -6,6 +6,9 @@ import (
 	"time"
 )
 
+// network interface check
+// waits for netsetgo to creates tunneling between host and container
+
 func WaitForNetwork() error {
 	maxAttempt := 3
 	checkInterval := time.Second
