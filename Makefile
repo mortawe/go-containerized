@@ -20,5 +20,5 @@ build:
 
 .PHONY: install
 install: netsetgo genrootfs build
-	@ sudo cp ./bin/go-conteinerized /usr/local/bin/go-conteinerized
-	@ sudo chown root:root /usr/local/bin/go-conteinerized
+	@ sudo cp ./bin/go-conteinerized /usr/local/bin/go-containerized
+	@ sudo chown root:root /usr/local/bin/go-containerized
