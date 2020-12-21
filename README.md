@@ -16,7 +16,7 @@ go-containerized [-hostname=go-containerized] [-rootfs=/tmp/go-containerized/roo
 #### Example
 
 ```
-master@daddy:~/Dev$ go-conteinerized 
+master@daddy:~/Dev$ go-containerized 
 🦈 root@go-containerized:~/$ 
 ```
 
